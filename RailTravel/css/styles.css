@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background-color: #f5f7fa;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.search-box input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.search-box button {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#resultados {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.resultado {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.resultado {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer; /* 👈 importante */
+    transition: 0.2s;
+}
+
+.resultado:hover {
+    background: #e9f2ff;
+    transform: scale(1.02);
+}
+
+#bus {
+    display: grid;
+    grid-template-columns: repeat(4, 60px);
+    gap: 10px;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.seat {
+    width: 60px;
+    height: 60px;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.seat:hover {
+    background: #999;
+}
+
+.selected {
+    background: #007bff;
+    color: white;
+}
+
+#bus {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.seat {
+    width: 50px;
+    height: 50px;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.seat:hover {
+    background: #999;
+}
+
+.selected {
+    background: #007bff;
+    color: white;
+}
+
+.aisle {
+    width: 30px; /* 👈 pasillo */
+}
