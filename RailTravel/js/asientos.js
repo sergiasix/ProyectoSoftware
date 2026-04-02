@@ -10,20 +10,21 @@ document.getElementById("info-viaje").innerHTML = `
 `;
 }
 let asientoSeleccionado = null;
-
-const bus = document.getElementById("bus");
-
-// generar 4x5 asientos
 let asientoNum = 1;
+const MAX_ASIENTOS = 48;
 
-for (let fila = 0; fila < 5; fila++) {
+for (let fila = 0; fila < 20; fila++) { // ponemos muchas filas, luego cortamos
+
+    if (asientoNum > MAX_ASIENTOS) break;
 
     const row = document.createElement("div");
     row.className = "row";
 
     // izquierda (2 asientos)
     for (let i = 0; i < 2; i++) {
-        row.appendChild(crearAsiento(asientoNum++));
+        if (asientoNum <= MAX_ASIENTOS) {
+            row.appendChild(crearAsiento(asientoNum++));
+        }
     }
 
     // pasillo
@@ -33,23 +34,30 @@ for (let fila = 0; fila < 5; fila++) {
 
     // derecha (2 asientos)
     for (let i = 0; i < 2; i++) {
-        row.appendChild(crearAsiento(asientoNum++));
+        if (asientoNum <= MAX_ASIENTOS) {
+            row.appendChild(crearAsiento(asientoNum++));
+        }
     }
 
     bus.appendChild(row);
 }
-
 // función para crear asiento
 function crearAsiento(num) {
     const seat = document.createElement("div");
     seat.className = "seat";
     seat.innerText = num;
 
-    seat.onclick = () => {
-        document.querySelectorAll(".seat").forEach(s => s.classList.remove("selected"));
-        seat.classList.add("selected");
-        asientoSeleccionado = num;
-    };
+    const ocupado = Math.random() < 0.2;
+
+    if (ocupado) {
+        seat.classList.add("ocupado");
+    } else {
+        seat.onclick = () => {
+            document.querySelectorAll(".seat").forEach(s => s.classList.remove("selected"));
+            seat.classList.add("selected");
+            asientoSeleccionado = num;
+        };
+    }
 
     return seat;
 }

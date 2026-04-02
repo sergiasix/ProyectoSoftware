@@ -124,3 +124,13 @@ body {
 .aisle {
     width: 30px; /* 👈 pasillo */
 }
+
+.ocupado {
+    background: #444;
+    color: white;
+    cursor: not-allowed;
+}
+
+.ocupado:hover {
+    background: #444; /* que no cambie */
+}
