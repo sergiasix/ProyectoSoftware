@@ -1,20 +1,23 @@
 body {
     margin: 0;
     font-family: Arial;
-    background-color: #f5f7fa;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
 }
 
+/* RESULTADOS */
 .container {
     max-width: 800px;
-    margin: 50px auto;
-    text-align: center;
+    margin: 40px auto;
 }
 
+/* SEARCH BOX */
 .search-box {
-    display: flex;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    display: inline-flex;
     gap: 10px;
-    justify-content: center;
-    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .search-box input {
@@ -32,52 +35,51 @@ body {
     cursor: pointer;
 }
 
+.search-box button:hover {
+    background: #0056b3;
+}
+
+
 #resultados {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.resultado {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-}
 
+
+/* TARJETAS */
 .resultado {
     background: white;
-    padding: 15px;
-    border-radius: 8px;
+    padding: 20px;
+    border-radius: 12px;
     display: flex;
     justify-content: space-between;
-    cursor: pointer; /* 👈 importante */
+    margin-bottom: 15px;
+    cursor: pointer;
     transition: 0.2s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .resultado:hover {
-    background: #e9f2ff;
-    transform: scale(1.02);
+    transform: translateY(-5px);
+    background: #f0f6ff;
 }
 
+
 #bus {
-    display: grid;
-    grid-template-columns: repeat(4, 60px);
-    gap: 10px;
-    justify-content: center;
-    margin: 30px 0;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .seat {
-    width: 60px;
-    height: 60px;
-    background: #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    font-weight: bold;
 }
 
 .seat:hover {
@@ -133,4 +135,54 @@ body {
 
 .ocupado:hover {
     background: #444; /* que no cambie */
+}
+
+button {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+input {
+    transition: 0.2s;
+}
+
+input:focus {
+    border: 1px solid #007bff;
+    outline: none;
+}
+
+.header {
+    background: rgba(0,0,0,0.2);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+* HERO */
+.hero {
+    text-align: center;
+    color: white;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    margin-bottom: 30px;
+}
+
+.precio {
+    font-weight: bold;
+    font-size: 18px;
+    color: #007bff;
 }

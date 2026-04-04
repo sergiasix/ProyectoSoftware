@@ -1,55 +1,66 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
-    <title>Buscar trenes</title>
+    <title>RailTravel</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
 
-    <div class="container">
-        <h1>Buscar trenes</h1>
+<!-- HEADER -->
+<div class="header">
+    🚆 RailTravel
+</div>
 
-        <div class="search-box">
-            <input id="origen" placeholder="Origen">
-            <input id="destino" placeholder="Destino">
-            <button onclick="buscar()">Buscar</button>
-        </div>
+<!-- HERO -->
+<div class="hero">
+    <h1>Encuentra tu tren al mejor precio</h1>
 
-        <div id="resultados"></div>
+    <div class="search-box">
+        <input id="origen" placeholder="Origen (Madrid)">
+        <input id="destino" placeholder="Destino (Barcelona)">
+        <button onclick="buscar()">Buscar</button>
     </div>
+</div>
 
-    <script>async function buscar() {
-            const origen = document.getElementById("origen").value;
-            const destino = document.getElementById("destino").value;
+<!-- RESULTADOS -->
+<div class="container">
+    <div id="resultados"></div>
+</div>
 
-            const res = await fetch(`http://localhost:8080/api/trains/search?origen=${origen}&destino=${destino}`);
-            const data = await res.json();
+<script>
+async function buscar() {
+    const origen = document.getElementById("origen").value;
+    const destino = document.getElementById("destino").value;
 
-            const contenedor = document.getElementById("resultados");
-            contenedor.innerHTML = "";
+    const res = await fetch(`http://localhost:8080/api/trains/search?origen=${origen}&destino=${destino}`);
+    const data = await res.json();
 
-            data.forEach(t => {
-                const div = document.createElement("div");
-                div.className = "resultado";
+    const contenedor = document.getElementById("resultados");
+    contenedor.innerHTML = "";
 
-                div.innerHTML = `
-            <span>${t.operador} | ${t.salida} - ${t.llegada}</span>
-            <span class="precio">${t.precio.toFixed(2)}€</span>
+    data.forEach(t => {
+        const div = document.createElement("div");
+        div.className = "resultado";
+
+        div.innerHTML = `
+            <div>
+                <strong>${t.operador}</strong><br>
+                ${t.salida} - ${t.llegada}
+            </div>
+            <div class="precio">${t.precio.toFixed(2)}€</div>
         `;
 
-                
-                div.onclick = () => {
-                    const data = encodeURIComponent(JSON.stringify(t));
-                    window.location.href = `asientos.html?data=${data}`;
-                };
-                
-                contenedor.appendChild(div);
-            });
-        }</script>
+        div.onclick = () => {
+            const data = encodeURIComponent(JSON.stringify(t));
+            window.location.href = `asientos.html?data=${data}`;
+        };
+
+        contenedor.appendChild(div);
+    });
+}
+</script>
 
 </body>
-
 </html>
