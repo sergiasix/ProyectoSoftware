@@ -186,3 +186,20 @@ input:focus {
     font-size: 18px;
     color: #007bff;
 }
+
+.reserva {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.reserva strong {
+    font-size: 18px;
+}
+
+.reserva .precio {
+    color: #007bff;
+    font-weight: bold;
+}

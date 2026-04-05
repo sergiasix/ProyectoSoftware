@@ -68,5 +68,21 @@ function reservar() {
         return;
     }
 
-    alert(`Reserva confirmada\nAsiento: ${asientoSeleccionado}`);
+    const reserva = {
+        asiento: asientoSeleccionado,
+        operador: data.operador,
+        origen: data.origen,
+        destino: data.destino,
+        salida: data.salida,
+        llegada: data.llegada,
+        precio: data.precio,
+        fecha: new Date().toLocaleString()
+    };
+
+    let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+    reservas.push(reserva);
+    localStorage.setItem("reservas", JSON.stringify(reservas));
+
+    // redirigir a historial
+    window.location.href = "reservas.html";
 }
