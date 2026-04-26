@@ -7,32 +7,35 @@ body {
 /* RESULTADOS */
 .container {
     max-width: 800px;
-    margin: 40px auto;
+    margin: 20px auto;
 }
+
+
 
 /* SEARCH BOX */
 .search-box {
     background: white;
     padding: 20px;
     border-radius: 12px;
-    display: inline-flex;
+    display: flex;
+    justify-content: center;
     gap: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    width: fit-content; 
+    margin: 0 auto;
 }
 
 .search-box input {
-    padding: 10px;
-    border-radius: 6px;
+    padding: 12px;
+    border-radius: 8px;
     border: 1px solid #ccc;
+    min-width: 180px;
 }
 
 .search-box button {
-    padding: 10px 20px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
 .search-box button:hover {
@@ -172,13 +175,18 @@ input:focus {
 
 * HERO */
 .hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* centra vertical */
+    align-items: center;       /* centra horizontal */
     text-align: center;
     color: white;
-    padding: 80px 20px;
+    padding: 60px 20px; /* ocupa pantalla menos header */
 }
 
 .hero h1 {
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .precio {
@@ -202,4 +210,199 @@ input:focus {
 .reserva .precio {
     color: #007bff;
     font-weight: bold;
+}
+
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+    display: inline-block;
+    transition: transform 0.2s;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: 400px;
+    margin: 80px auto;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.form-card h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-card input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.2s;
+}
+
+.form-card input:focus {
+    border: 1px solid #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+
+.form-card button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.form-card {
+    transition: 0.3s;
+}
+
+.form-card:hover {
+    transform: translateY(-5px);
+}
+
+.search-box select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.logout-btn {
+    margin-left: 20px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    background: red;
+    color: white;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background: darkred;
+}
+
+.search-box input[type="date"] {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.reserva canvas {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.fechas {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.search-box {
+    flex-direction: column; /* 👈 ya no horizontal */
+    align-items: center;
+    gap: 15px;
+}
+
+.fila {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.fechas input {
+    min-width: 180px;
+}
+
+#usuario-info {
+    color: white;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.logout-btn {
+    background: red;
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+#usuario-info {
+    margin-left: auto;
+    margin-right: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.menu button {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.menu button:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.opcion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tipo-viaje {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    color: black;
+
+}
+
+.tipo-viaje label {
+    background: #f0f0f0;
+    padding: 6px 14px;
+    border-radius: 15px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.tipo-viaje label:hover {
+    background: #e0e0e0;
+}
+
+.tipo-viaje input {
+    margin-right: 5px;
 }
