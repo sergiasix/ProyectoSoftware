@@ -10,7 +10,15 @@
 
 <!-- HEADER -->
 <div class="header">
-    🚆 RailTravel
+    <a href="index.html" class="logo">🚆 RailTravel</a>
+
+    <div class="menu">
+        <button onclick="window.location.href='reservas.html'">Mis reservas</button>
+        
+        <span id="usuario-info"></span>
+
+        <button onclick="logout()" class="logout-btn">Cerrar sesión</button>
+    </div>
 </div>
 
 <!-- HERO -->
@@ -18,13 +26,41 @@
     <h1>Encuentra tu tren al mejor precio</h1>
 
     <div class="search-box">
+
+    <!-- FILA 1 -->
+    <div class="fila">
         <input id="origen" placeholder="Origen (Madrid)">
         <input id="destino" placeholder="Destino (Barcelona)">
         <button onclick="buscar()">Buscar</button>
-        <button onclick="window.location.href='reservas.html'">
-    Ver mis reservas
-</button>
+
+        <select id="pasajero">
+            <option value="adulto">1 adulto</option>
+            <option value="niño">1 niño</option>
+            <option value="senior">1 senior</option>
+        </select>
     </div>
+
+    <!-- FILA 2 -->
+    <div class="fila tipo-viaje">
+    <label class="opcion">
+        <input type="radio" name="tipo" value="ida" checked onclick="cambiarTipo()">
+        <span>Solo ida</span>
+    </label>
+
+    <label class="opcion">
+        <input type="radio" name="tipo" value="idaVuelta" onclick="cambiarTipo()">
+        <span>Ida y vuelta</span>
+    </label>
+</div>
+
+    <!-- FILA 3 -->
+    <div class="fila fechas">
+        <input type="date" id="fechaIda">
+        <input type="date" id="fechaVuelta" style="display:none;">
+    </div>
+
+</div>
+
 </div>
 
 <!-- RESULTADOS -->
@@ -33,10 +69,47 @@
 </div>
 
 <script>
+
+   document.addEventListener("DOMContentLoaded", () => {
+
+    const usuarioId = localStorage.getItem("usuarioId");
+    const nombre = localStorage.getItem("usuarioNombre");
+
+    const info = document.getElementById("usuario-info");
+    const menu = document.querySelector(".menu");
+
+    if (usuarioId && nombre) {
+        // 🔐 USUARIO LOGUEADO
+        if (info) {
+            info.innerText = "👤 " + nombre;
+        }
+
+    } else {
+        // 🔓 USUARIO NO LOGUEADO
+        menu.innerHTML = `
+            <button onclick="window.location.href='login.html'">Iniciar sesión</button>
+            <button onclick="window.location.href='usuario.html'">Crear cuenta</button>
+        `;
+    }
+
+});
 async function buscar() {
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
 
+    const fechaIda = document.getElementById("fechaIda").value;
+const fechaVuelta = document.getElementById("fechaVuelta").value;
+const tipo = document.querySelector('input[name="tipo"]:checked').value;
+
+    if (!fechaIda) {
+        alert("Selecciona una fecha de ida");
+        return;
+    }
+
+    if (tipo === "idaVuelta" && !fechaVuelta) {
+        alert("Selecciona una fecha de vuelta");
+        return;
+    }
     const res = await fetch(`http://localhost:8080/api/trains/search?origen=${origen}&destino=${destino}`);
     const data = await res.json();
 
@@ -54,14 +127,48 @@ async function buscar() {
             </div>
             <div class="precio">${t.precio.toFixed(2)}€</div>
         `;
+div.onclick = () => {
+    const pasajero = document.getElementById("pasajero").value;
 
-        div.onclick = () => {
-            const data = encodeURIComponent(JSON.stringify(t));
-            window.location.href = `asientos.html?data=${data}`;
-        };
+    const dataConTodo = {
+        ...t,
+        pasajero: pasajero,
+        fechaIda: fechaIda,
+        fechaVuelta: tipo === "idaVuelta" ? fechaVuelta : null,
+        tipoViaje: tipo
+    };
 
+    const dataEncoded = encodeURIComponent(JSON.stringify(dataConTodo));
+    window.location.href = `asientos.html?data=${dataEncoded}`;
+};
         contenedor.appendChild(div);
     });
+}
+
+// 🔥 AQUÍ VA
+const usuarioId = localStorage.getItem("usuarioId");
+
+if (usuarioId) {
+    console.log("Usuario logueado:", usuarioId);
+}
+
+function logout() {
+    localStorage.removeItem("usuarioId");
+    localStorage.removeItem("usuarioNombre");
+    alert("Sesión cerrada");
+    window.location.href = "index.html";
+}
+
+function cambiarTipo() {
+    const tipo = document.querySelector('input[name="tipo"]:checked').value;
+    const vuelta = document.getElementById("fechaVuelta");
+
+    if (tipo === "idaVuelta") {
+        vuelta.style.display = "block";
+    } else {
+        vuelta.style.display = "none";
+        vuelta.value = ""; // limpia fecha
+    }
 }
 </script>
 
