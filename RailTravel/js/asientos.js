@@ -6,6 +6,8 @@ if (dataParam) {
     data = JSON.parse(decodeURIComponent(dataParam));
 document.getElementById("info-viaje").innerHTML = `
     <h3>${data.operador} | ${data.origen} → ${data.destino}</h3>
+    <p>📅 ${data.fechaIda || "Sin fecha"}</p>
+    ${data.fechaVuelta ? `<p>📅 Vuelta: ${data.fechaVuelta}</p>` : ""}
     <p>${data.salida} - ${data.llegada} | ${data.precio.toFixed(2)}€</p>
 `;
 }
@@ -62,27 +64,57 @@ function crearAsiento(num) {
     return seat;
 }
 
-function reservar() {
+async function reservar() {
+    const usuarioId = localStorage.getItem("usuarioId");
+
+    if (!usuarioId) {
+        alert("Debes crear un usuario antes de reservar");
+        window.location.href = "usuario.html";
+        return;
+    }
+
     if (!asientoSeleccionado) {
         alert("Selecciona un asiento");
         return;
     }
 
+    if (!data) {
+        alert("Error: no hay datos del viaje");
+        return;
+    }
+
     const reserva = {
-        asiento: asientoSeleccionado,
-        operador: data.operador,
-        origen: data.origen,
-        destino: data.destino,
-        salida: data.salida,
-        llegada: data.llegada,
-        precio: data.precio,
-        fecha: new Date().toLocaleString()
-    };
+    asiento: asientoSeleccionado,
+    operador: data.operador,
+    origen: data.origen,
+    destino: data.destino,
+    salida: data.salida,
+    llegada: data.llegada,
+    precio: data.precio,
+    pasajero: data.pasajero,
 
-    let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
-    reservas.push(reserva);
-    localStorage.setItem("reservas", JSON.stringify(reservas));
+    fechaIda: data.fechaIda,
+    fechaVuelta: data.fechaVuelta
+};
 
-    // redirigir a historial
+    console.log("📦 Enviando reserva:", reserva);
+
+    const response = await fetch(`http://localhost:8080/api/reservas/${usuarioId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reserva)
+    });
+
+    console.log("📡 Status:", response.status);
+
+    if (!response.ok) {
+        alert("Error al guardar la reserva");
+        return;
+    }
+
+    alert("Reserva realizada correctamente");
+
     window.location.href = "reservas.html";
 }
