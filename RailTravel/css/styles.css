@@ -406,3 +406,12 @@ input:focus {
 .tipo-viaje input {
     margin-right: 5px;
 }
+
+.reserva button {
+    background: red;
+    margin-top: 10px;
+}
+
+.reserva button:hover {
+    background: darkred;
+}
