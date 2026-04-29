@@ -69,7 +69,47 @@
 </div>
 
 <script>
+document.addEventListener("DOMContentLoaded", () => {
 
+    // 📅 FECHAS
+    const hoy = new Date().toISOString().split("T")[0];
+
+    const fechaIda = document.getElementById("fechaIda");
+    const fechaVuelta = document.getElementById("fechaVuelta");
+
+    fechaIda.min = hoy;
+    fechaVuelta.min = hoy;
+
+    // 👉 controlar ida → vuelta
+    fechaIda.addEventListener("change", (e) => {
+        const nuevaFecha = e.target.value;
+
+        fechaVuelta.min = nuevaFecha;
+
+        if (fechaVuelta.value && fechaVuelta.value < nuevaFecha) {
+            fechaVuelta.value = "";
+        }
+    });
+
+    // 👤 USUARIO
+    const usuarioId = localStorage.getItem("usuarioId");
+    const nombre = localStorage.getItem("usuarioNombre");
+
+    const info = document.getElementById("usuario-info");
+    const menu = document.querySelector(".menu");
+
+    if (usuarioId && nombre) {
+        if (info) {
+            info.innerText = "👤 " + nombre;
+        }
+    } else {
+        menu.innerHTML = `
+            <button onclick="window.location.href='login.html'">Iniciar sesión</button>
+            <button onclick="window.location.href='usuario.html'">Crear cuenta</button>
+        `;
+    }
+
+});
    document.addEventListener("DOMContentLoaded", () => {
 
     const usuarioId = localStorage.getItem("usuarioId");
@@ -167,7 +207,7 @@ function cambiarTipo() {
         vuelta.style.display = "block";
     } else {
         vuelta.style.display = "none";
-        vuelta.value = ""; // limpia fecha
+        vuelta.value = ""; 
     }
 }
 </script>
