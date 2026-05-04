@@ -94,7 +94,8 @@ async function reservar() {
     pasajero: data.pasajero,
 
     fechaIda: data.fechaIda,
-    fechaVuelta: data.fechaVuelta
+    fechaVuelta: data.fechaVuelta,
+    tipoViaje: data.tipoViaje
 };
 
     console.log("📦 Enviando reserva:", reserva);

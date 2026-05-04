@@ -34,8 +34,9 @@ if (!usuarioId) {
                             ${r.salida} - ${r.llegada}<br>
                             Asiento: ${r.asiento}<br>
 
-<span class="precio">${r.precio ? r.precio.toFixed(2) : "N/A"}€</span>                        </div>
+                            <span class="precio">${r.precio ? r.precio.toFixed(2) : "N/A"}€</span>                        </div>
 
+                            <button onclick="cancelar(${r.id})">❌ Cancelar</button>
                         <div id="${qrId}"></div>
 
                     </div>
@@ -73,7 +74,23 @@ setTimeout(() => {
 
         }); // 👈 aquí se cierra bien el then
 }
+async function cancelar(id) {
 
+    const confirmar = confirm("¿Seguro que quieres cancelar la reserva?");
+
+    if (!confirmar) return;
+
+    const res = await fetch(`http://localhost:8080/api/reservas/${id}`, {
+        method: "DELETE"
+    });
+
+    if (res.ok) {
+        alert("Reserva cancelada");
+        location.reload(); // 🔥 recarga la lista
+    } else {
+        alert("Error al cancelar");
+    }
+}
 // 👇 fuera del else
 function volver() {
     window.location.href = "index.html";
